@@ -15,10 +15,10 @@ class WeatherController extends AbstractController
     public function city(
         #[MapEntity(mapping: ['country' => 'country', 'city' => 'city'])]
         Location $location,
-        MeasurementRepository $repository,
+        WeatherUtil $util,
     ): Response
     {
-        $measurements = $repository->findByLocation($location);
+        $measurements = $util->getWeatherForLocation($location);
 
         return $this->render('weather/city.html.twig', [
             'location' => $location,
